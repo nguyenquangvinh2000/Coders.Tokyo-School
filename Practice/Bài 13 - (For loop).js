@@ -82,7 +82,6 @@ function calculate(start, end) {
 console.log(calculate(2,5));
 
 //bai 13.f:
-
   // sử dụng vòng lặp for...of viết hàm has để kiểm tra xem array có tồn tại 1 giá trị xác định hay không
   // Tham số:
   //  - array: mảng cần kiểm tra
@@ -91,14 +90,13 @@ console.log(calculate(2,5));
   //  - true nếu có tồn tại
   //  - false nếu không tồn tại
 function has(array, value) {
-  length1 = array.length;
-  for (let i = 0; i < length1; i++) {
-    if (array[i] === value)
+  for (let x of array) {
+    if (x === value)
       return true;
   }
   return false;
 }
 
-var array = [1,2,3,4,"5",6,7];
-var value = 5;
+let array = [1,2,3,4,"5",6,7];
+let value = 5;
 console.log(has(array, value)); // false
