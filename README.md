@@ -1,6 +1,27 @@
 # Learn JS in Coders.Toky
 ***
 ```javascript
+
+// Given an array of arrays, flatten them into a single array
+/**
+ * Example: 
+ * var arrays = [
+ *    ["1", "2", "3"],
+ *    [true],
+ *    [4, 5, 6]
+ *  ];
+ * 
+ * flatten(arrays) // ["1", "2", "3", true, 4, 5, 6];
+ */
+
+function flatten(arr) {
+  return arr.reduce((acc, currentValue) => {
+  	// Nối mảng.
+      return acc.concat(currentValue);
+  }, []);
+}
+
+
 /**
  * Count the occurrences of each element inside an array using reduce
  * @params {array}
