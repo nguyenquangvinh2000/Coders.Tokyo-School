@@ -359,4 +359,150 @@ function getExtension(fileName) {
   return path.extname(fileName);
 }
 
+// Promise
+// let fs = require('promise-fs');
+
+// function onDone(song) {
+//  console.log(song);
+// }
+
+// function onError(error) {
+//  console.log(error);
+// }
+
+// function readFile(song) {
+//  return fs.readFile(song, 'utf8');
+// }
+
+// readFile('song1.txt')
+//   .then(onDone)
+//   .then(() => {
+//    return readFile('song2.txt');
+//   })
+//   .then(onDone)
+//   .catch(onError);
+
+var fs = require('fs');
+
+function readFile(song) {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(song, 'utf8', function (err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    })
+  });
+}
+
+readFile('song1.txt')
+  .then(function (data) {
+    console.log(data);
+  })
+  .then(function () {
+    return readFile('song2.txt')
+  })
+  .then(function (data) {
+    console.log(data)
+  })
+  .catch(function (err) {
+    console.log(err);
+  })
+
+  // Promise all
+  /**
+ * Sử dụng Promise.all + axios để tải về 3 đường link sau cùng lúc và hiển thị ra kết quả:
+ * https://jsonplaceholder.typicode.com/todos/1
+ * https://jsonplaceholder.typicode.com/todos/2
+ * https://jsonplaceholder.typicode.com/todos/3
+ */
+
+var axios = require('axios'); //Đối tượng promise.
+
+let url1 = 'https://jsonplaceholder.typicode.com/todos/1';
+let url2 = 'https://jsonplaceholder.typicode.com/todos/2';
+let url3 = 'https://jsonplaceholder.typicode.com/todos/3';
+
+
+Promise.all([
+  axios.get(url1),
+  axios.get(url2),
+  axios.get(url3)
+]).then((response) => {
+  response.forEach((element) => {
+    console.log(element.data);
+  })
+})
+.catch((error) => {
+  console.log(error)
+});
+
+
+// Xu li ngay thang. #date time
+
+/**
+ * Viết hàm isWeekend nhận vào 1 ngày dưới dạng string YYYY/MM/DD 
+ * trả về true nếu ngày đó là 1 ngày cuối tuần (Thứ 7 hoặc Chủ Nhật), 
+ * ngược lại trả về false
+ */
+
+function isWeekend(dateString) {
+  let day = new Date(dateString).getDay();
+  if (day === 0 || day === 6) {
+      return true;
+  }
+  return false;
+}
+
+/**
+ * Viết hàm diff trả về số ngày chênh lệch giữa 2 ngày bất kì
+ */
+ 
+// var fromDate = new Date('2019/10/17');
+// var toDate = new Date('2018/10/21');
+ 
+// function diff(fromDate, toDate) {
+//     return toDate.getDate() - fromDate.getDate();
+
+// }
+
+/**
+ * Viết hàm diff trả về số ngày chênh lệch giữa 2 ngày bất kì
+ */
+ 
+var fromDate = new Date('2019/10/17');
+var toDate = new Date('2018/10/21');
+ 
+function diff(fromDate, toDate) {
+    var minutes = 1000 * 60;
+    var hours = minutes * 60;
+    var days = hours * 24;
+    var years = days * 365;
+  return (toDate - fromDate)/days;
+}
+
+
+
+/**
+ * Viết hàm subtractDays trả về 1 ngày trong quá khứ 
+ * cách ngày được truyền vào n ngày
+ */
+
+var date = new Date("06/10/2019")
+
+function subtractDays(date, n) {
+  // Write code here...
+  return date.setDate(date.getDate() - n);
+}
+
+/**
+ * Tính số ms chênh lệch giữa date b và date a
+ */
+
+function diffMs(a, b) {
+ // viết code ở đây
+ return Math.abs(new Date(a) - new Date(b));
+}
+
 ```
