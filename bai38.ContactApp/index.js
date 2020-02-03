@@ -1,6 +1,7 @@
 // Require module.
 let readlineSync = require('readline-sync');
 let fs = require('fs');
+const {table} = require('table');
 
 let contactList = [];
 
@@ -67,13 +68,15 @@ function showMenu() {
 
 function showAllContact() {
     let data = readFile(); //Read file JSON and given a array data.
-    data.forEach( function(element, index) {
-    	console.log('[' + (index + 1) + ']');
-    	console.log('Name : ' + element.name);
-    	console.log('Phone: ' + element.phone);
-    	console.log('----------------');
+
+    data = data.map((item) => {
+    	return [item.name, item.phone];
     });
 
+    data.unshift(['Name', 'Phone Number']);
+
+    data = table(data);
+    console.log(data);
 }
 
 function addContact() {
