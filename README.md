@@ -505,4 +505,118 @@ function diffMs(a, b) {
  return Math.abs(new Date(a) - new Date(b));
 }
 
+
+// Design database libraly.
+/**
+ * Thiết kế database cho 1 hệ thống quản lý thư viện sách, cho biết thư viện này có hàng trăm giá sách khác nhau, sách được để ở bất kì giá nào không theo danh mục nào.
+ * Mỗi cuốn sách có 1 mã khác nhau.
+ * Hệ thống cho phép đăng ký người dùng mới, một người có thể mượn nhiều sách khác nhau trong một khoảng thời gian hữu hạn.
+ * Hệ thống có thể lưu lịch sử ai đã mượn sách nào, bắt đầu mượn từ bao lâu, trả lúc nào.
+ * Hệ thống có lưu lại số ngày quá hạn tổng cộng của 1 người dùng, ví dụ sách A quá 2 ngày, sách B quá 3 ngày -> tổng 5 ngày
+ */
+
+var books = [
+  { id: 0, name: 'Times', price: 1000 },
+  { id: 1, name: 'The lake', price: 1200 },
+  { id: 2, name: 'Harry potter', price: 3000 },
+  { id: 3, name: 'Clean code', price: 500 },
+  { id: 4, name: 'Art', price: 4000 }
+];
+
+// List user.
+var users = [
+  { id: 0, username: 'admin', age: 22, overdue: 0, level: 1 },
+  { id: 1, username: 'duytruong', age: 21, overdue: 0, level: 0 },
+  { id: 2, username: 'nguyenlan', age: 18, overdue: 0, level: 0 }
+];
+
+// Bảng sách cho mượn.
+var borrows = [
+  { 
+    borrow_id: 0,
+    user_id: 1,
+    date_borrow: '2020/02/01', 
+    due_date: '2020/02/05' 
+  },
+  { 
+    borrow_id: 1,
+    user_id: 1,
+    date_borrow: '2020/02/02', 
+    due_date: '2020/02/06' 
+  },
+  { 
+    borrow_id: 2,
+    user_id: 2,
+    list_book_id: 2,
+    date_borrow: '2020/02/01', 
+    due_date: '2020/02/05' 
+  },
+];
+
+
+
+// Danh sách sách đã mượn.
+var borrowBooks = [
+  { 
+    list_book_id: 0,
+    borrow_id: 0,
+    book_id: 1,
+    borrow_status: false,
+    date_return: null
+  },
+  { 
+    list_book_id: 1,
+    borrow_id: 0,
+    book_id: 2,
+    borrow_status: false,
+    date_return: null
+  },
+  { 
+    list_book_id: 2,
+    borrow_id: 1,
+    book_id: 0,
+    borrow_status: false,
+    date_return: null
+  },
+  { 
+    list_book_id: 3,
+    borrow_id: 2,
+    book_id: 4,
+    borrow_status: true,
+    date_return: '2020/02/04'
+  }
+];
+
+// Lich su thue sach cua thu vien.
+/**
+ * @params {Number} id of the user
+ * @return {string} name of the user
+ */
+function getUsername(user_id) {
+    let userObject = users.find((user) => {
+      return user.id === user_id;
+    });
+    return userObject.username;
+}
+
+/**
+ * Lấy số lượng sách đã mượn.
+ */
+function getQuantity(borrow_id) {
+  let listBooks = borrowBooks.filter((book) => {
+    return book.borrow_id === borrow_id;
+  });
+  return listBooks.length;
+}
+
+
+// Hiển thị ra những người đã mượn, ngày mượn và số lượng sách mượn.
+
+function showListBorrow() {
+  return borrows.map((borrow) => {
+    return { username: getUsername(borrow.user_id), date_borrow: borrow.date_borrow, quantity: getQuantity(borrow.borrow_id) }
+  });
+}
+showListBorrow();
+
 ```
