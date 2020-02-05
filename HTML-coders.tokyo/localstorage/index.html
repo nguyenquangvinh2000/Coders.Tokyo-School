@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<section>
+		<input type="text" id="item-name">
+		<button id="js-add-item">Add</button>
+		<ul id="todo-list">
+			
+		</ul>
+	</section>
+	<script>
+		let btnAddItem = document.getElementById('js-add-item');
+		let itemName = document.getElementById('item-name');
+		let todoList = document.getElementById('todo-list');
+		let data = JSON.parse(localStorage.getItem('todoList')); // array.
+		data = data === null ? [] : data;
+		itemName.value = sessionStorage.getItem('draft');
+		
+		btnAddItem.addEventListener('click', addItem);
+		itemName.addEventListener('keyup', updateSessionStorage);
+		render(data);
+
+		function updateSessionStorage() {
+			sessionStorage.setItem('draft', itemName.value);
+			itemName.value = sessionStorage.getItem('draft');
+		}
+
+		function render(arr) {
+			let output = arr.map((item) => {
+				return '<li>' + item + '</li>';
+			});
+			todoList.innerHTML = output.join('');
+		}
+
+		function addItem() {
+			if (itemName.value != '') {
+
+				data.push(itemName.value);
+				localStorage.setItem("todoList", JSON.stringify(data));
+
+				render(data);
+
+				itemName.value = '';
+			}
+		}
+		
+	</script>
+</body>
+</html>

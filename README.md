@@ -619,4 +619,321 @@ function showListBorrow() {
 }
 showListBorrow();
 
+// ###
+// Viết hàm đảo ngược chuỗi
+// Example
+// reverse('abc') // 'cba'
+function reverse(str) {
+  return str.split('').reverse().join('');
+}
+
+// Viết hàm để viết hoa chữ cái đầu của từng từ trong câu
+// Example
+// capitalize("abc") // "Abc"
+function capitalize(str) {
+  // viết code ở đây
+  let arrStr = str.split(" ");
+  arrStr = arrStr.map((item) => {
+      return item[0].toUpperCase() + item.slice(1);
+  });
+  return arrStr.join(' ');
+}
+
+// Viết hàm lấy extension của một file
+// Example
+// getExtensionFilename("abc.mp3") // "mp3"
+
+function getExtensionFilename(filename) {
+  // viết code ở đây.
+  return filename.split('.').pop();
+}
+
+// viết hàm lấy ra giá trị lớn nhất trong 3 số nhập vào
+function findMax(a,b,c){
+    return Math.max(a, b, c);
+}
+
+// function findMax(a, b, c) {
+//     max = a;
+//     max = (b > max) ? b : max;
+//     max = (c > max) ? c : max;
+//     return max;
+// }
+// 
+// viết hàm kiểm tra xem một chuỗi bắt đầu bằng "Java" hay không 
+function startWith(str){
+  // viết code ở đây.
+  return str.search('Java') === 0;
+}
+
+
+//Viết 1 function kiểm tra số lương kí tự 'p' và 't' của 1 chuỗi có bằng nhau hay không
+//=============================
+//input : string
+//output : true or false
+//=============================
+
+function equal_pt(str){ 
+ // viết code ở đây.
+  str = str.split('');
+//   let p = 0, t = 0;
+//   str.forEach((item) => {
+//       if (item === 'p') {
+//           p++;
+//       }
+//       if (item === 't') {
+//           t++;
+//       }
+//   })
+  let p = str.filter((item) => {
+      return item === 'p';
+  });
+  let t = str.filter((item) => {
+      return item === 't';
+  })
+  return p.length === t.length;
+}
+
+//Viết function omitCharAt  trả về chuỗi đã được loại bỏ ký tại vị trí n bất kỳ
+//Lưu ý cho chuỗi 'abcd' :
+//    element    'a'|'b'|'c'|'d'
+//    index       0 | 1 | 2 | 3
+//  n = 1 ------------------- 'acd'
+//  n = 2 ------------------- 'abd'
+
+function omitCharAt(str, n) {
+  str = str.split('');
+  str.splice(n, 1);
+  return str.join('');
+}
+
+// Viết hàm nhận vào 2 số a, b
+// Trả về số gần 100 nhất
+// nearestTo100(89, 180) // 89
+function nearestTo100(a, b){
+  // viết code ở đây.
+ if (Math.abs(a - 100) > Math.abs(b - 100)) {
+     return b;
+ }
+ return a;
+}
+
+/* Viết hàm toNextChar dùng để thay thế mọi ký tự trong một chuỗi 
+thành ký tự theo sau nó trong bảng chữ cái. Ví dụ: "Hello" chuyển thành "Ifmmp"
+// Tham số:
+// - String: chuỗi nhập vào ban đầu.
+*/
+
+function toNextChar(str) {
+  // viết code ở đây.
+  str = str.split('');
+  str = str.map((item, index) => {
+     return String.fromCharCode(item.charCodeAt(0) + 1);
+  });
+  return str.join('');
+}
+
+// viết hàm tạo mới một 1 string từ n ký tự từ vị trí đầu và cuối của chuỗi cũ
+// newString("1wyg5yhd45", 2) // "1w45"
+function newString(str, n){
+// viết code ở đây.
+  str = str.split('');
+  str = str.filter((item, index) => {
+      return (index < n || index >= str.length - n);
+  })
+  return str.join('');
+}
+
+/* Write a function that splits an array (first argument) into groups 
+the length of size(second argument) and returns them as a two-dimensional array.
+Example
+ chunkArrayInGroups(["a", "b", "c", "d", "e"], 2) // [["a", "b"], ["c", "d"], ["e"]]
+*/
+function chunkArrayInGroups(arr, size){
+  // write code here.
+  let result = [];
+  let round = Math.ceil(arr.length/size);
+  for (let i = 0; i < round; i++) {
+      result.push(arr.splice(0,size));
+  }
+  return result;
+}
+
+/* Write a function return maximum possible sum of some of its k consecutive numbers 
+(numbers that follow each other in order.) of a given array of positive integers
+*/
+function maxOfSumChain(arr,k){
+  // write code here.
+  arr = arr.sort((a, b) => {
+      return b - a;
+  });
+  arr.length = k;
+  return arr.reduce((acc, cur) => {
+      return acc + cur;
+  }, 0)
+}
+
+/**
+ * Xoa bo cac phan tu con thua trong array
+ */
+
+function clearArray(arr) {
+  return arr.filter((item, index) => {
+    return arr.indexOf(item) === index;
+  });
+}
+
+
+
+/*
+  - Viết hàm findMaxDiff nhận tham số là một mảng integer (mảng số nguyên)
+  - Trả về sự khác biệt lớn nhất giữa hai phần tử liền kề của mảng đó.
+  - Nếu mảng có 1 phần tử hoặc không có phần tử nào trả về 0
+  Example: 
+  [1, -10, 5, 18, -9, 5] => 27
+*/
+function findMaxDiff(arr) {
+  // viết code ở đây.
+  
+  if (arr.length <= 1) {
+      return 0;
+  }
+  let result = [];
+  for (let i = 1; i < arr.length; i++) {
+      result.push(Math.abs(arr[i-1] - arr[i]));
+  }
+  return result.reduce((acc, cur) => {
+      return Math.max(acc, cur)
+  });
+  
+}
+
+/* Hãy viết một hàm để tìm một số có số lần lặp lại nhiều nhất trong một dãy các số nguyên.
+
+Input: dãy số
+Output: 1 dãy số bao gồm các số có số lần lặp lại nhiều nhất
+
+ví dụ:
+Input: [1,2,3,4,1,2,2,1]
+Output: [1,2]*/
+
+function findMostFrequent(arr) {
+    // Dem so phan tu
+    // Expect: { '1':  2, '2': 2, '3': 1... }
+  arr = arr.reduce((acc, cur) => {
+     acc[cur] = acc[cur] + 1 || 1;
+     return acc;
+  }, {});
+
+  // Object to array object
+  // Expect: [ { '1': 2 }, { '2': 2 }...]
+  let result = [];
+  for (id in arr) {
+      let data = {};
+      data['index'] = id;
+      data['quantity'] = arr[id];
+      result.push(data);
+  }
+  // Sắp xếp aray theo thứ tự số lần xuất hiện từ lớn đến bé.
+  result = result.sort((a, b) => {
+      return b.quantity - a.quantity;
+  })
+  
+  // Lọc ra những thằng lớn nhất.
+  result = result.filter((item) => {
+      return item.quantity === result[0].quantity;
+  })
+  //Trả về.
+  return result.map((item) => item.index * 1 );
+  
+}
+
+/* Hãy viết một hàm để tìm một số có số lần lặp lại nhiều nhất trong một dãy các số nguyên.
+
+Input: dãy số
+Output: 1 dãy số bao gồm các số có số lần lặp lại nhiều nhất
+
+ví dụ:
+Input: [1,2,3,4,1,2,2,1]
+Output: [1,2]*/
+
+function findMostFrequent(arr) {
+    // Dem so phan tu
+    // Expect: { '1':  2, '2': 2, '3': 1... }
+  arr = arr.reduce((acc, cur) => {
+     acc[cur] = acc[cur] + 1 || 1;
+     return acc;
+  }, {});
+
+  // Object to array object
+  // Expect: [ { '1': 2 }, { '2': 2 }...]
+  let result = [];
+  for (id in arr) {
+      let data = {};
+      data['index'] = id;
+      data['quantity'] = arr[id];
+      result.push(data);
+  }
+  // Sắp xếp aray theo thứ tự số lần xuất hiện từ lớn đến bé.
+  result = result.sort((a, b) => {
+      return b.quantity - a.quantity;
+  })
+  
+  // Lọc ra những thằng lớn nhất.
+  result = result.filter((item) => {
+      return item.quantity === result[0].quantity;
+  })
+  //Trả về.
+  return result.map((item) => item.index * 1 );
+  
+}
+
+/*
+Hãy viết một hàm để kiểm tra xem có thể sắp xếp các kí tự 
+của 1 chuỗi String cho trước thành 1 chuỗi String cho trước khác không?
+
+Input: 2 chuỗi String
+Output: True hoặc False
+
+ví dụ:
+
+Input: abc cba
+Output: True
+
+Input: abx abb
+Output: False
+*/
+
+function rearrangeChar(str1, str2) {
+// Viết code tại đây!
+  str1 = str1.split('');
+
+  for (let i = 0; i < arrLength = str1.length; i++) {
+      if (str2.search(str1[i]) === -1)
+      return false;
+  }
+  return true;
+}
+
+/*
+Hãy viết một hàm để tìm giá trị lớn nhất có thể đạt được 
+của hiệu 2 số bất kì trong dãy số
+
+Input: là một dãy số.
+Output: giá trị lớn nhất có thể đạt được của hiệu 2 số bất kì trong dãy số.
+
+Ví dụ:
+
+Input: [1, 2, 3, 8, 9]
+Output: 8 (là hiệu của 9 và 1)
+
+*/
+
+function findmaxDiff(arr){
+  // Viết code tại đây;
+  arr = arr.sort((a, b) => b - a);
+  return arr[0] - arr[arr.length - 1];
+}
+
+
 ```
