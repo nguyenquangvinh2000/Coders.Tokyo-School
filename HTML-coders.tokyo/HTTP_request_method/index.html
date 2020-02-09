@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- 
+		Create — POST
+		Read/Retrieve — GET
+		Update — PUT/PATCH
+		Delete — DELETE
+	- GET : Lấy dữ liệu từ REST API server về.
+	- POST: Thêm dữ liệu mới vào dữ liệu hiện có.
+	- DELETE: Xóa dữ liệu.
+	- PUT/PATCH: Update dữ liệu.
+	 -->
+	<!-- Axios JS -->
+	<script src="axios.js"></script>
+	<script>
+		let url = 'http://localhost:9081/todoList/';
+		function render(data) {
+			data.forEach((item) => {
+				console.log('Id: ', item.id);
+				console.log('Name: ', item.name);
+			})
+		}
+		// GET request. Get datas from REST APi server.
+		function getRequest() {
+			axios.get(url, /* { params: { id: 1 } } */)
+			    .then((res) => {
+			    	render(res.data);
+			    })
+			    .catch((err) => {
+			    	console.log(err);
+			    });
+		}
+		//getRequest()
+		/**
+		 * POST request. Add data to API server.
+		 */
+	    function postRequest() {
+			axios({
+			  method: 'post',
+			  url: url,
+			  data: {
+			    firstName: 'Fred',
+			    lastName: 'Flintstone'
+			  }
+			}).then((res) => {
+				console.log(res)
+			}).catch((err) => {
+				console.log(err);
+			});
+	    }
+
+	    /**
+	     * Gửi yêu cầu delete data chỉ định từ phía người dùng.
+	     * @return {[type]} [description]
+	     */
+	    function deleteRequest() {
+	    	axios.delete(url+'4')
+	    	.then((res) => {
+				console.log(res)
+			}).catch((err) => {
+				console.log(err);
+			});
+	    }
+	    //deleteRequest()
+	    /**
+	     * Update data.
+	     */
+	    function putRequest() {
+	    	axios.put(url+'0', {
+	    		id: 0,
+	    		name: 'Đinh Đại'
+	    	})
+	    	.then((res) => {
+				console.log(res)
+			}).catch((err) => {
+				console.log(err);
+			});
+	    }
+	    //putRequest()
+	    function patchRequest() {
+			axios({
+			  method: 'patch',
+			  url: (url + '4'),
+			  data: {
+			    name: 'Fred'
+			  }
+			}).then((res) => {
+				console.log(res)
+			}).catch((err) => {
+				console.log(err);
+			});
+	    }
+	    //patchRequest();
+	    setTimeout(() => {
+	    	console.log('a');
+	    }, 1000);
+	    console.log('b');
+	</script>
+</body>
+</html>

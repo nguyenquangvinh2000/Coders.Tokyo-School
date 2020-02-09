@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<title>Page</title>
+
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-wekit-box-sizing: border-box;
+		}
+
+		html {
+			font-size: 62.5%; /* 10px */
+			background-color: lightgray;
+		}
+
+		.menu {
+			height: 4rem;
+			line-height: 4rem;
+			font-size: 2rem;
+			background-color: #333;
+			color: #fff;
+			position: relative;
+			z-index: 2;
+		}
+
+		.menu li {
+			list-style-type: none;
+		}
+
+		.menu__item {
+			display: inline-block;
+		}
+
+		.menu__link {
+			text-decoration: none;
+			color: #333;
+			padding: 0 1rem;
+			color: #fff;
+			display: block;
+		}
+
+		.menu__link:hover {
+			background-color: #fff;
+			color: #333;
+		}
+
+		.submenu {
+			position: absolute;
+			background-color: #333;
+			min-width: 10rem;
+			display: none;
+		}
+
+		.submenu__item {
+			position: relative;
+		}
+
+		.menu__item:hover > .submenu {
+			display: block;
+		}
+
+		.submenu__item:hover > .submenu {
+			display: block;
+			right: -10rem;
+			top: 0rem;
+		}
+
+		.row::after {
+			content: "";
+			clear: both;
+			display: block;
+		}
+		[class*="col-"] {
+			float: left;
+			width: 100%;
+		}
+
+
+		@media only screen and (min-width: 768px) {
+			/* For destop */
+			.col-1 { width: %;  }
+			.col-2 { width: %;  }
+			.col-3 { width: %;  }
+			.col-4 { width: 25%;  }
+			.col-5 { width: 20%;  }
+			.col-6 { width: %;  }
+			.col-7 { width: %;  }
+			.col-8 { width: %;  }
+			.col-9 { width: %;  }
+			.col-10 { width: %;  }
+			.col-11 { width: %;  }
+
+		}
+	</style>
+</head>
+<body>
+	<nav class="menu">
+		<ul class="menu__list">
+			<li class="menu__item">
+				<a href="#" class="menu__link">Home</a>
+			</li>
+			<li class="menu__item">
+				<a href="#" class="menu__link">Link1</a>
+				<ul class="submenu">
+					<li class="submenu__item"><a href="#" class="menu__link">Sub1</a></li>
+					<li class="submenu__item"><a href="#" class="menu__link">Sub2</a></li>
+					<li class="submenu__item">
+						<a href="#" class="menu__link">Sub3 ></a>
+						<ul class="submenu">
+							<li class="submenu__item"><a href="#" class="menu__link">Sub1</a></li>
+							<li class="submenu__item"><a href="#" class="menu__link">Sub2</a></li>
+							<li class="submenu__item">
+								<a href="#" class="menu__link">Sub3</a>
+								<ul class="submenu">
+									<li class="submenu__item"><a href="#" class="menu__link">Sub1</a></li>
+									<li class="submenu__item"><a href="#" class="menu__link">Sub2</a></li>
+									<li class="submenu__item"><a href="#" class="menu__link">Sub3</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="menu__item"><a href="#" class="menu__link">Link2</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Link3</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Link4</a></li>
+		</ul>
+	</nav>
+	<script>
+		let arr = [11,2,3,4,5,3,4,22,7,8,44,-5];
+
+		function findMin() {
+			// let flag = arr[0];
+			// let arrLength = arr.length;
+			// for (let i = 1; i < arrLength; i++) {
+			// 	if (arr[i] < flag) {
+			// 		flag = arr[i];
+			// 	}
+			// }
+			// return flag;
+			return arr.reduce((min, cur) => {
+				return Math.min(min, cur);
+			});
+		}
+
+
+		console.log(findMin(arr));
+		function sapXepChon(arr) {
+			let arrLength = arr.length;
+			
+
+			for (let i = 0; i < arrLength; i++) {
+				let min = i;
+				for (let j = i + 1; j < arrLength; j++) {
+					if (arr[j] < arr[min]) {
+						min = j;
+					}
+				}
+
+				let flag = arr[i];
+				arr[i] = arr[min];
+				arr[min] = flag;
+			}
+			return arr;
+		}
+
+		function findmax(arr) {
+			let arrLength = arr.length;
+
+			for (let i = 0; i < arrLength; i++) {
+				let max = i;
+
+				for (let j = i + 1; j < arrLength; j++) {
+					if (arr[j] > arr[max]) {
+						max = j;
+					}
+				}
+				let flag = arr[i];
+				arr[i] = arr[max];
+				arr[max] = flag;
+			}
+			return arr;
+		}
+// arr = [11,2,3,4,5,3,4,22,7,8,44,-5];
+		function xapXepChen(arr) {
+			let arrLength = arr.length;
+
+			for (let i = 0; i < arrLength; i++) {
+				let current = arr[i];
+				let loop = i;
+
+				while (loop > 0 && (arr[loop - 1] > current)) {
+					arr[loop] = arr[loop - 1];
+					--loop; // Gia tri cuoi cung cua loop chinh la vi tri thich hop de chen.
+				}
+				arr[loop] = current;
+			}
+			return arr;
+		}
+
+		const quickSort = (arr) => {
+
+    if(arr.length < 2) return arr;
+    
+    // *** lấy phần tử cuối của 'arr' làm 'pivot'
+    const pivotIndex = arr.length - 1;
+    const pivot = arr[pivotIndex];
+
+    const left = [];
+    const right = [];
+    
+    let currentItem;
+    // *** 'i < pivotIndex' => chúng ta sẽ không loop qua 'pivot' nữa
+    for(let i = 0; i < pivotIndex; i++) {
+        currentItem = arr[i];
+        
+        if(currentItem < pivot) {
+            left.push(currentItem);
+        } else {
+            right.push(currentItem);
+        }
+    }
+
+    return [...quickSort(left), pivot, ...quickSort(right)];
+}
+
+console.log(quickSort([100, 2, 5, 4, 7, 5, 6, 8, 0, 12, 34, 15]));
+// *** => [0, 2, 4, 5, 5, 6, 7, 8, 12, 15, 34, 100]
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Add item</title>
+	<style>
+		#form {
+			width: 400px;
+			margin: 50px auto;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<section id="form">
+		<input type="text" id="name">
+		<button id="js-btn-add">Edit</button>
+	</section>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		const btnAdd = document.getElementById('js-btn-add');
+		const name = document.getElementById('name');
+		let id = location.hash.replace('#', '');
+		let nameData;
+
+		let url = 'http://localhost:9081/todoList/' + id;
+		btnAdd.addEventListener('click', editItem);
+
+		// put data into input.
+		axios.get(url)
+		    .then((res) => {
+		    	nameData = res.data.name
+		    	name.value = nameData;
+		    })
+		    .catch((err) => {
+		    	console.log(err);
+		    });
+
+		
+		function editItem() {
+			let input = name.value;
+			if (input !== nameData) {
+				axios.put(url, { name: input })
+					.then(() => {
+						window.location.href = '/';
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			}
+		}
+	</script>
+</body>
+</html>

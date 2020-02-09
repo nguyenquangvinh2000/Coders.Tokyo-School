@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<title>List item</title>
+	<style>
+		.main {
+			width: 400px;
+			margin: 50px auto;
+			text-align: center;
+		}
+		
+		#js-list-item {
+			text-align: left;
+		}
+		tr,th,td {
+			border: 1px solid lightgray;
+			padding: 5px;
+		}
+		a {
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<!-- Thêm sửa xóa item trên API server. -->
+	<section class="main">
+		<h1><a href="./add-item.html">+ Add item</a></h1>
+		<table id="js-list-item" width="100%"></table>
+	</section>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		const listItem = document.getElementById('js-list-item');
+		let url = 'http://localhost:9081/todoList/';
+		let data;
+		let header = '<tr><th width="50px">ID</th><th>Name</th><th width="100px">Option</th></tr>';
+
+		listItem.addEventListener('click', deleteItem);
+
+		axios.get(url)
+			.then((response) => {
+				data = response.data;
+				render(data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
+		function render(arr) {
+			listItem.innerHTML = header;
+			arr.forEach((item) => {
+				let tr = document.createElement("TR");
+
+				let output = '<td>' + item.id + '</td><td>' + item.name + '</td><td><a href="./edit-item.html#' + item.id + '">Edit</a> / <a data-id=' + item.id + ' href="#">Delete</a></td>'
+
+				tr.innerHTML = output;
+				listItem.appendChild(tr);
+			});
+		}
+
+		function deleteItem(event) {
+			let id = event.target.dataset.id;
+			if (id !== '') {
+				axios.delete((url + id))
+					.then(() => {
+						event.target.parentElement.parentElement.remove();
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			}
+		}
+	</script>
+</body>
+</html>
